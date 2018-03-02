@@ -9,6 +9,9 @@ object LeafTree {
   final case class Branch[A](left: LeafTree[A], right: LeafTree[A]) extends LeafTree[A]
   final case class Leaf[A](value: A) extends LeafTree[A]
 
+  def of[A](a: A, xs: A*): LeafTree[A] = {
+    xs.foldLeft(leaf(a))((tree, a) => Branch(tree, leaf(a)))
+  }
   def branch[A](left: LeafTree[A], right: LeafTree[A]): LeafTree[A] = Branch(left, right)
   def leaf[A](value: A): LeafTree[A] = Leaf(value)
 
